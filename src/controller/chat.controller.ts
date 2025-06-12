@@ -21,13 +21,13 @@ export class ChatController {
 
   @Get()
   async chat(@Query() query: ChatQueryDto): Promise<ChatResponse> {
-    
+
     if (!query.message?.trim()) {
       throw new HttpException('消息内容不能为空', HttpStatus.BAD_REQUEST);
     }
 
     const result = await this.chatService.chat(query.message);
-    
+
     if (result.error) {
       throw new HttpException(result.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
